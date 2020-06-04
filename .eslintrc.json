@@ -1,0 +1,46 @@
+{
+  "extends": ["eslint-config-airbnb", "prettier"],
+  "plugins": ["prettier", "html"],
+  "parser": "babel-eslint",
+  "env": {
+    "browser": true,
+    "node": true,
+    "es2020": true
+    // If you want to use jQuery, uncomment the below line
+    // "jquery": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 2020
+  },
+  "rules": {
+    "prettier/prettier": ["error", {}, {
+      "usePrettierrc":  true
+    }],
+    "no-console": "off",
+    "camelcase": "warn",
+    "arrow-body-style": ["error", "always"],
+    "func-style": [
+      "error",
+      "expression",
+      {
+        "allowArrowFunctions": true
+      }
+    ],
+    "block-scoped-var": "error",
+    "no-plusplus": "error",
+    "eqeqeq": ["error", "always"],
+    "no-use-before-define": [
+      "error",
+      {
+        "functions": true,
+        "classes": true,
+        "variables": true
+      }
+    ],
+    "arrow-parens": ["error", "always"],
+    "prefer-arrow-callback": "error",
+    "prefer-const": "error",
+    "no-underscore-dangle": "off",
+    "class-methods-use-this": "off"
+  }
+}
