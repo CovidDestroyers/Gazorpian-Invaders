@@ -5,17 +5,20 @@
   "env": {
     "browser": true,
     "node": true,
-    "es2020": true
-    // If you want to use jQuery, uncomment the below line
-    // "jquery": true
+    "es2020": true,
+    "jquery": true
   },
   "parserOptions": {
     "ecmaVersion": 2020
   },
   "rules": {
-    "prettier/prettier": ["error", {}, {
-      "usePrettierrc":  true
-    }],
+    "prettier/prettier": [
+      "error",
+      {},
+      {
+        "usePrettierrc": true
+      }
+    ],
     "no-console": "off",
     "camelcase": "warn",
     "arrow-body-style": ["error", "always"],
