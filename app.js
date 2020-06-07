@@ -22,6 +22,14 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.set('trust proxy', 1);
 
+// Enforces HTTPS in production environment
+if (process.env.NODE_ENV === 'production') {
+  // eslint-disable-next-line global-require
+  const enforce = require('express-sslify');
+
+  app.use(enforce.HTTPS({ trustProtoHeader: true }));
+}
+
 app.use(cors());
 app.use(compression());
 app.use(logger('dev'));
@@ -31,14 +39,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'dist')));
-
-// Enforces HTTPS
-if (process.env.NODE_ENV === 'production') {
-  // eslint-disable-next-line global-require
-  const enforce = require('express-sslify');
-
-  app.use(enforce.HTTPS({ trustProtoHeader: true }));
-}
 
 // Session Store Set Up
 app.use(
