@@ -6,22 +6,22 @@ module.exports = () => {
     return done(null, user);
   });
 
-  passport.deserializeUser((user, done) => {
+  passport.deserializeUser(async (user, done) => {
     console.log('De-Serializing User');
 
-    db.one('SELECT * FROM "users" WHERE username=$1', [user.username])
-      .then((myUser) => {
-        return done(null, myUser[0]);
-      })
-      .catch((error) => {
-        console.log(
-          '===========THERE WAS AN ERROR WITH DESERIALIZE USER============='
-        );
-        console.log(error);
+    try {
+      const myUser = await db.any('SELECT * FROM "users" WHERE id=$1', [
+        user.id
+      ]);
 
-        return done(null, false, {
-          message: 'There was an error. Please try again.'
-        });
+      return done(null, myUser[0]);
+    } catch (error) {
+      console.log('======= ERROR WITH DESERIALIZEUSER ========');
+      console.log(error);
+
+      return done(null, false, {
+        message: 'There was an error. Please try again.'
       });
+    }
   });
 };

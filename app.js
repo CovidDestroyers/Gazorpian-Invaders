@@ -15,12 +15,15 @@ const passport = require('passport');
 const flash = require('connect-flash');
 
 const { localStrategy } = require('./auth/passportLocal');
+const passportInit = require('./auth/passportInit');
 
 const app = express();
 const redisClient = redis.createClient({ url: process.env.REDIS_URL });
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
+
+passportInit();
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -48,7 +51,7 @@ app.use(express.static(path.join(__dirname, 'dist')));
  * ===== AUTHENTICATION SET UP ======
  * ==================================
  */
-passport.use(localStrategy);
+passport.use('local', localStrategy);
 
 app.use(passport.initialize());
 app.use(passport.session());

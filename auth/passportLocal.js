@@ -1,20 +1,20 @@
 const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcryptjs');
 const { db } = require('../data/database');
-const init = require('./passportInit');
 
 const options = {};
-
-init();
 
 const localStrategy = new LocalStrategy(
   options,
   async (username, password, done) => {
+    const lowerCaseUsername = username.toLowerCase().trim();
     let user;
+
     try {
-      // TODO: this needs to change to implement db.one
-      user = await db.any('SELECT * FROM "users" WHERE username=$1', [
-        username
+      // TODO: this needs to change to implement db.one with proper error
+      //  handling
+      user = await db.any('SELECT * FROM "users" WHERE LOWER(username)=$1', [
+        lowerCaseUsername
       ]);
 
       // TODO: extract into own function
