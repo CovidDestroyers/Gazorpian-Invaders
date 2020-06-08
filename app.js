@@ -11,6 +11,10 @@ const { v4: uuidv4 } = require('uuid');
 const session = require('express-session');
 const redis = require('redis');
 const RedisStore = require('connect-redis')(session);
+const passport = require('passport');
+const flash = require('connect-flash');
+
+const { localStrategy } = require('./auth/passportLocal');
 
 const app = express();
 const redisClient = redis.createClient({ url: process.env.REDIS_URL });
@@ -40,7 +44,16 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'dist')));
 
-// Session Store Set Up
+/* ==================================
+ * ===== AUTHENTICATION SET UP ======
+ * ==================================
+ */
+passport.use(localStrategy);
+
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
+// Session Store
 app.use(
   session({
     genid: () => {
@@ -57,6 +70,10 @@ app.use(
   })
 );
 
+/* ==================================
+ * ============== ROUTES ============
+ * ==================================
+ */
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
