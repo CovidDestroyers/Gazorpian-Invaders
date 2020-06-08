@@ -1,5 +1,10 @@
 require('dotenv').config();
 
+// This is here so I can use ngrok during development
+if (process.env.NODE_ENV === 'development') {
+  process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
+}
+
 const bodyParser = require('body-parser');
 const createError = require('http-errors');
 const express = require('express');
@@ -14,7 +19,6 @@ const RedisStore = require('connect-redis')(session);
 const passport = require('passport');
 const flash = require('connect-flash');
 
-const { localStrategy } = require('./auth/passportLocal');
 const passportInit = require('./auth/passportInit');
 
 const app = express();
@@ -22,6 +26,7 @@ const redisClient = redis.createClient({ url: process.env.REDIS_URL });
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
+const loginRouter = require('./routes/auth/login');
 
 passportInit();
 
@@ -51,7 +56,6 @@ app.use(express.static(path.join(__dirname, 'dist')));
  * ===== AUTHENTICATION SET UP ======
  * ==================================
  */
-passport.use('local', localStrategy);
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -79,6 +83,7 @@ app.use(
  */
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/', loginRouter);
 
 redisClient.on('error', (err) => {
   console.log('Redis error:', err);
