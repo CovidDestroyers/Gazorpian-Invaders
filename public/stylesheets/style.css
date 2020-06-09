@@ -18,3 +18,10 @@ body {
   position: relative;
   z-index: 2;
 }
+
+@font-face {
+  font-family: Arcadepix;
+  src: url("../assets/content/ARCADEPI.TTF");
+  font-weight: 400;
+  font-weight: normal;
+}
