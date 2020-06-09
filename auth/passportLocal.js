@@ -5,6 +5,11 @@ const { db } = require('../data/database');
 
 const options = {};
 
+/**
+ * Creates a new Passport  Local Strategy
+ *
+ * @type {Strategy} passport local strategy
+ */
 const localStrategy = new LocalStrategy(
   options,
   async (username, password, done) => {

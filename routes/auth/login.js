@@ -3,8 +3,11 @@ const passport = require('../../auth/passportLocal');
 
 const app = express();
 
+/**
+ * @param {req}
+ */
 app.post(
-  '/login/auth',
+  '/login',
   passport.authenticate('local', {
     failureRedirect: '/',
     failureFlash: true
