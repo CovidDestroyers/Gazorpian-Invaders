@@ -22,7 +22,7 @@
       <div class="modal-body">
         <div class="container-fluid">
           <div class="row">
-            <form id="signupForm" action="/auth/signup/free" method="POST">
+            <form id="signupForm" action="/auth/signup" method="POST">
               <div class="form-group">
                 <label class="text-white" for="newUsername">Username</label>
                 <input
@@ -32,6 +32,7 @@
                   aria-describedby="emailHelp"
                   placeholder="Enter username"
                   name="username"
+                  required
                 />
               </div>
               <div class="form-group">
@@ -44,6 +45,7 @@
                   type="password"
                   placeholder="Password"
                   name="password"
+                  required
                 />
                 <small id="emailHelp" class="form-text text-light"
                   >Password must be at least 8 characters with 2 numbers.
@@ -58,6 +60,7 @@
                   class="form-control"
                   placeholder="Confirm Password"
                   name="confirmPassword"
+                  required
                 />
               </div>
               <div class="form-group">

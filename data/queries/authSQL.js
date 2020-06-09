@@ -28,17 +28,14 @@ const insertNewUser = async (userID, username, hashedPassword, dateJoined) => {
  * @param username
  * @returns {Boolean}
  */
-const doesUserExist = async (username) => {
+const checkUserExists = async (username) => {
   try {
-    const existance = await db.one(
+    const existanceQuery = await db.one(
       'SELECT exists(SELECT username FROM "users" WHERE username = $1)',
       [username]
     );
 
-    console.log(existance);
-    const trueFalse = existance.exists;
-
-    return trueFalse;
+    return existanceQuery;
   } catch (error) {
     console.log(error);
     return error;
@@ -63,4 +60,4 @@ const getUserByUserName = async (username) => {
     return error;
   }
 };
-module.exports = { insertNewUser, doesUserExist, getUserByUserName };
+module.exports = { insertNewUser, checkUserExists, getUserByUserName };
