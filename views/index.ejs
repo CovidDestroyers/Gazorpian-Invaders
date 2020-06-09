@@ -9,7 +9,16 @@
     <%- include('partials/navbar') %> <%- include('partials/auth/signUp') %> <%-
     include('partials/auth/login') %>
     <!-- Load fonts first here -->
-    <div style="font-family:Arcadepix; position:absolute; left:-1000px; visibility:hidden;">.</div>
+    <div
+      style="
+        font-family: Arcadepix, serif;
+        position: absolute;
+        left: -1000px;
+        visibility: hidden;
+      "
+    >
+      .
+    </div>
     <%- include('partials/footerJavascripts') %> <% if (message) { %>
     <script>
       $('#login').click();

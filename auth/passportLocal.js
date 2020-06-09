@@ -1,7 +1,8 @@
 const LocalStrategy = require('passport-local').Strategy;
 const passport = require('passport');
 const bcrypt = require('bcryptjs');
-const { db } = require('../data/database');
+// const { db } = require('../data/database');
+const { getUserByUserName } = require('../data/queries/authSQL');
 
 const options = {};
 
@@ -17,20 +18,14 @@ const localStrategy = new LocalStrategy(
     let user;
 
     try {
-      // TODO: this needs to change to implement db.one with proper error
-      //  handling
-      user = await db.any('SELECT * FROM "users" WHERE LOWER(username)=$1', [
-        lowerCaseUsername
-      ]);
+      user = await getUserByUserName(lowerCaseUsername);
 
-      // TODO: extract into own function
       if (!user[0]) {
         return done(null, false, {
           message: 'Incorrect username and password combination.'
         });
       }
 
-      // TODO: extract into own function
       if (!bcrypt.compareSync(password, user[0].password)) {
         return done(null, false, {
           message: 'Incorrect username and password combination.'
