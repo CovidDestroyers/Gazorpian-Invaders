@@ -1,3 +1,5 @@
 # Files to Ignore
 /public/assets/vendor/phaser.js
-/public/js/invaders.js
+/public/js/Entities.js
+/public/js/game.js
+/public/js/SceneMain.js
