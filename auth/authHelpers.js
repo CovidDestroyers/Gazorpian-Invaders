@@ -4,15 +4,10 @@ const { v4: uuidv4 } = require('uuid');
 const { insertNewUser, checkUserExists } = require('../data/queries/authSQL');
 
 const createUser = async (req) => {
-  const { username, password, confirmPassword } = req.body;
+  const { username, password } = req.body;
   const dateJoined = moment().format('MMMM Do YYYY, h:mm:ss a');
   const userId = uuidv4();
   const lowerCaseUsername = username.toLowerCase().trim();
-
-  // TODO: do this check on the front end
-  if (password !== confirmPassword) {
-    throw new Error('Passwords do not match');
-  }
 
   try {
     const salt = await bcrypt.genSalt();

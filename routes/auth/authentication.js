@@ -21,25 +21,27 @@ app.post(
 );
 
 app.post('/auth/signup', async (req, res, next) => {
-  // TODO: check if user already exists first
-  const dirtyUsername = req.body.username;
-  const cleanUsername = dirtyUsername.toLowerCase().trim();
+  // TODO: Get keys from the req body first
+  console.log(req.body);
+  const { username } = req.body;
+  const cleanUsername = username.toLowerCase().trim();
 
   try {
     const userExists = await doesUserExist(cleanUsername);
     if (userExists) {
-      // res.json({ message: 'User name is already taken' });
-      res.redirect('/');
+      res.json({ message: 'User name is already taken' });
+      // res.redirect('/');
       // return next();
     }
 
     const user = await createUser(req);
     console.log(user);
 
-    return passport.authenticate('local', {
-      successRedirect: '/',
+    await passport.authenticate('local', {
       failureFlash: true
     })(req, res, next);
+
+    return res.json({ message: 'Success' });
   } catch (error) {
     console.log(error);
 

@@ -6,8 +6,12 @@
     <%- include('partials/head')%>
   </head>
   <body>
-    <%- include('partials/navbar') %> <%- include('partials/auth/signUp') %> <%-
-    include('partials/auth/login') %>
+    <%- include('partials/navbar') %>
+
+    <%- include('partials/auth/signUp') %>
+
+    <%- include('partials/auth/login') %>
+
     <!-- Load fonts first here -->
     <div
       style="
@@ -19,7 +23,9 @@
     >
       .
     </div>
-    <%- include('partials/footerJavascripts') %> <% if (message) { %>
+    <%- include('partials/footerJavascripts') %>
+
+    <% if (message) { %>
     <script>
       $('#login').click();
     </script>
