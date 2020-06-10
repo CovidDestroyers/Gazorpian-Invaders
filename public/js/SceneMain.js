@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 class SceneMain extends Phaser.Scene {
 	constructor() {
 		super({ key: "SceneMain" });
@@ -16,8 +17,6 @@ class SceneMain extends Phaser.Scene {
    
     this.load.image("sprLaserEnemy", "../assets/content/sprLaserEnemy.png");
     this.load.image("sprLaserPlayer", "../assets/content/sprLaserPlayer.png");
-
- 
   }
   
   create() {
@@ -29,8 +28,7 @@ class SceneMain extends Phaser.Scene {
         lives: 3,
       };
     }
-    
-    
+      
     this.anims.create({
       key: "sprEnemy0",
       frames: this.anims.generateFrameNumbers("sprEnemy0"),
@@ -38,27 +36,19 @@ class SceneMain extends Phaser.Scene {
       repeat: -1
     });
    
-
     this.player = new Player(
       this,
       this.game.config.width * 0.5,
       this.game.config.height - 64
     );
 
-
     this.cursors = this.input.keyboard.createCursorKeys();
-
     this.keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-
     this.playerShootDelay = 30;
     this.playerShootTick = 0;
-
-
     this.enemies = this.add.group();
     this.enemyLasers = this.add.group();
     this.playerLasers = this.add.group();
- 
-
     this.lastEnemyMoveDir = "RIGHT";
     this.enemyMoveDir = "LEFT";
     this.enemyRect = new Phaser.Geom.Rectangle(
@@ -137,22 +127,22 @@ class SceneMain extends Phaser.Scene {
   updateEnemiesMovement() {
     this.enemyMoveTimer = this.time.addEvent({
       delay: 1024,
-      callback: function() {
-        if (this.enemyMoveDir == "RIGHT") {
+      callback() {
+        if (this.enemyMoveDir === "RIGHT") {
           this.enemyRect.x += 6;
           
           if (this.enemyRect.x + this.enemyRect.width > this.game.config.width - 20) {
             this.setEnemyDirection("DOWN");
           }
         }
-        else if (this.enemyMoveDir == "LEFT") {
+        else if (this.enemyMoveDir === "LEFT") {
           this.enemyRect.x -= 6;
         
           if (this.enemyRect.x < 20) {
             this.setEnemyDirection("DOWN");
           }
         }
-        else if (this.enemyMoveDir == "DOWN") {
+        else if (this.enemyMoveDir === "DOWN") {
           this.enemyMoveTimer.delay -= 100;
           this.moveEnemiesDown();
         }
@@ -160,10 +150,10 @@ class SceneMain extends Phaser.Scene {
         for (let i = this.enemies.getChildren().length - 1; i >= 0; i--) {
           const enemy = this.enemies.getChildren()[i];
           
-          if (this.enemyMoveDir == "RIGHT") {
+          if (this.enemyMoveDir === "RIGHT") {
             enemy.x += 6;
           }
-          else if (this.enemyMoveDir == "LEFT") {
+          else if (this.enemyMoveDir === "LEFT") {
             enemy.x -= 6;
           }
         }        
@@ -176,7 +166,7 @@ class SceneMain extends Phaser.Scene {
   updateEnemiesShooting() {
     this.time.addEvent({
       delay: 500,
-      callback: function() {
+      callback() {
         for (let i = 0; i < this.enemies.getChildren().length; i++) {
           const enemy = this.enemies.getChildren()[i];
   
@@ -198,10 +188,10 @@ class SceneMain extends Phaser.Scene {
     
       enemy.y += 20;
       
-      if (this.lastEnemyMoveDir == "LEFT") {
+      if (this.lastEnemyMoveDir === "LEFT") {
         this.setEnemyDirection("RIGHT");
       }
-      else if (this.lastEnemyMoveDir == "RIGHT") {
+      else if (this.lastEnemyMoveDir === "RIGHT") {
         this.setEnemyDirection("LEFT");	
       }
     }
@@ -210,7 +200,7 @@ class SceneMain extends Phaser.Scene {
   updatePlayerMovement() {
     this.time.addEvent({
       delay: 60,
-      callback: function() {
+      callback() {
         if (this.cursors.left.isDown) {
           this.player.x -= 8;
         }
@@ -227,7 +217,7 @@ class SceneMain extends Phaser.Scene {
   updatePlayerShooting() {
     this.time.addEvent({
       delay: 15,
-      callback: function() {
+      callback() {
         if (this.keySpace.isDown && this.player.active) {
           if (this.playerShootTick < this.playerShootDelay) {
             this.playerShootTick++;
@@ -247,7 +237,7 @@ class SceneMain extends Phaser.Scene {
   updateLasers() {
     this.time.addEvent({
       delay: 30,
-      callback: function() {
+      callback() {
         for (let i = 0; i < this.playerLasers.getChildren().length; i++) {
           const laser = this.playerLasers.getChildren()[i];
     
@@ -266,7 +256,7 @@ class SceneMain extends Phaser.Scene {
     
     this.time.addEvent({
       delay: 128,
-      callback: function() {
+      callback() {
         for (let i = 0; i < this.enemyLasers.getChildren().length; i++) {
           const laser = this.enemyLasers.getChildren()[i];
     
@@ -308,7 +298,7 @@ class SceneMain extends Phaser.Scene {
 
     this.time.addEvent({
       delay: 3000,
-      callback: function() {
+      callback() {
         if (this.passingData.lives > 0) {
           this.passingData.lives--;
     
