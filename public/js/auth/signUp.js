@@ -3,7 +3,7 @@ import 'regenerator-runtime/runtime.js';
 
 import { getInputValue } from './authMe.js';
 
-$(document).ready(() => {
+$(() => {
   let signupUserName = getInputValue('new-username');
   let signupPassword = getInputValue('signup-password');
   let confirmPassword = getInputValue('confirm-password');
