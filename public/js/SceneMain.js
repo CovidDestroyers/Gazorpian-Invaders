@@ -12,6 +12,8 @@ class SceneMain extends Phaser.Scene {
   }
 
   preload() {
+    this.load.image("bg", '../assets/content/sprBg0.png')
+    this.load.image("bg", '../assets/content/sprBg1.png')
     // character images here
     this.load.image("sprPlayer", "../assets/content/sprPlayer.png");
     this.load.spritesheet("sprEnemy0", "../assets/content/sprEnemy0.png", {
@@ -31,6 +33,7 @@ class SceneMain extends Phaser.Scene {
   
   // creates game, animation, entities, and initializes functions 
   create() {
+    this.add.image(0, 0, 'bg').setOrigin(0, 0);
     let scorei = 0;
     const scoreText = this.add.text(1, 1, ('Score: ' + score), { fontSize: '32px', fill: '#CD853F' });
     if (Object.getOwnPropertyNames(this.passingData).length === 0 &&
@@ -342,5 +345,4 @@ class SceneMain extends Phaser.Scene {
       loop: false
     });
   }
-
 }
