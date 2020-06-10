@@ -22,4 +22,12 @@
 <script src="/js/SceneMain.js"></script>
 <script src="/js/game.js"></script>
 
-<script type="module" src="/js/auth/signUp.js"></script>
+<script defer src=<%- JSON.stringify(webPackManifest["npm.babel.js"]) %>></script>
+<script defer src=<%- JSON.stringify(webPackManifest["npm.regenerator-runtime.js"]) %>></script>
+<script defer src=<%- JSON.stringify(webPackManifest["runtime.js"]) %>></script>
+<script defer src=<%- JSON.stringify(webPackManifest["shared.js"]) %>></script>
+
+<script defer src=<%- JSON.stringify(webPackManifest["shared~signUp.js"]) %>></script>
+<script defer src=<%- JSON.stringify(webPackManifest["signUp.js"]) %>></script>
+<script defer src=<%- JSON.stringify(webPackManifest["styles.js"]) %>></script>
+<script defer src=<%- JSON.stringify(webPackManifest["shared.js"]) %>></script>

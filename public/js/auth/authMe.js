@@ -71,10 +71,4 @@ const checkPasswordsMatch = (passwordId, confirmPwdId) => {
   return doPwdMatch;
 };
 
-module.exports = {
-  clearInputOnClick,
-  addWarningAlert,
-  checkPasswordsMatch,
-  getInputValue,
-  replaceContent
-};
+export { clearInputOnClick, addWarningAlert, checkPasswordsMatch, getInputValue, replaceContent };

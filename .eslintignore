@@ -1,3 +1,4 @@
 # Files to Ignore
 /public/assets/vendor/phaser.js
 /public/js/invaders.js
+dist/

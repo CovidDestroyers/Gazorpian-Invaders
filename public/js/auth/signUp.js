@@ -4,12 +4,15 @@ import 'regenerator-runtime/runtime.js';
 import { getInputValue } from './authMe.js';
 
 $(document).ready(() => {
-  const signupUserName = getInputValue('new-username');
-  const signupPassword = getInputValue('signup-password');
-  const confirmPassword = getInputValue('confirm-password');
+  let signupUserName = getInputValue('new-username');
+  let signupPassword = getInputValue('signup-password');
+  let confirmPassword = getInputValue('confirm-password');
 
   (async () => {
     while (signupUserName === '' || signupPassword === '' || confirmPassword === '') {
+      signupUserName = getInputValue('new-username');
+      signupPassword = getInputValue('signup-password');
+      confirmPassword = getInputValue('confirm-password');
       // eslint-disable-next-line no-await-in-loop
       await new Promise((resolve) => {
         setTimeout(resolve, 1000);
