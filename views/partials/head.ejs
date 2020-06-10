@@ -15,7 +15,7 @@
 />
 
 <!-- Our Style Sheets -->
-<link rel="stylesheet" type="text/css" href=<%- JSON.stringify(webPackManifest["styles.css"])
+<link rel="preload" as="style" onload="this.rel='stylesheet'" href=<%- JSON.stringify(webPackManifest["styles.css"])
 %> />
 
 <script async src=<%- JSON.stringify(webPackManifest["styles.js"]) %>></script>
