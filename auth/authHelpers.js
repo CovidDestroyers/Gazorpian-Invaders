@@ -45,4 +45,8 @@ const doesUserExist = async (username) => {
   }
 };
 
-module.exports = { createUser, doesUserExist };
+const comparePassWord = (password, passwordFromDB) => {
+  return bcrypt.compare(password, passwordFromDB);
+};
+
+module.exports = { createUser, doesUserExist, comparePassWord };

@@ -21,7 +21,7 @@ body {
 
 @font-face {
   font-family: Arcadepix;
-  src: url("../assets/content/ARCADEPI.TTF");
+  src: url('../assets/content/ARCADEPI.ttf');
   font-weight: 400;
   font-weight: normal;
 }

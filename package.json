@@ -106,12 +106,13 @@
   "babel": {
     "presets": [
       [
-        "env",
+        "airbnb",
         {
           "targets": {
-            "node": "current"
+            "node": "14.2.0"
           }
-        }
+        },
+        "@babel/preset-env"
       ]
     ],
     "plugins": [

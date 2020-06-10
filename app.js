@@ -26,7 +26,7 @@ const redisClient = redis.createClient({ url: process.env.REDIS_URL });
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
-const loginRouter = require('./routes/auth/login');
+const authRouter = require('./routes/auth/authentication');
 
 passportInit();
 
@@ -82,8 +82,8 @@ app.use(
  * ==================================
  */
 app.use('/', indexRouter);
+app.use('/', authRouter);
 app.use('/users', usersRouter);
-app.use('/', loginRouter);
 
 redisClient.on('error', (err) => {
   console.log('Redis error:', err);
