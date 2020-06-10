@@ -1,6 +1,7 @@
 /* eslint-disable prettier/prettier */
 
 // this is the main scene of the game where player kills enemies and has 3 lives
+let score = 0;
 class SceneMain extends Phaser.Scene {
 	constructor() {
 		super({ key: "SceneMain" });
@@ -30,7 +31,9 @@ class SceneMain extends Phaser.Scene {
   
   // creates game, animation, entities, and initializes functions 
   create() {
-    if (Object.getOwnPropertyNames(this.passingData).length == 0 &&
+    let scorei = 0;
+    const scoreText = this.add.text(1, 1, ('Score: ' + score), { fontSize: '32px', fill: '#CD853F' });
+    if (Object.getOwnPropertyNames(this.passingData).length === 0 &&
       this.passingData.constructor === Object) {
       
       this.passingData = {
@@ -109,6 +112,9 @@ class SceneMain extends Phaser.Scene {
       }
       if (enemy) {
         enemy.destroy();
+        scorei = score + 10;
+        score = scorei;
+        scoreText.setText(`Score: ` + score);
       }
     }, null, this);
     this.physics.add.overlap(this.playerLasers, this.enemyLasers, function(playerLaser, enemyLaser) {
@@ -308,6 +314,7 @@ class SceneMain extends Phaser.Scene {
   // when losing lives/ when 0 lives left
   onLifeDown() {
     if (this.passingData.lives === 0) {
+      score = 0;
       this.textGameOver = this.add.text(
         this.game.config.width * 0.5,
         128,
