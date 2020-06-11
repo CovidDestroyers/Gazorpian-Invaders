@@ -19,9 +19,16 @@ body {
   z-index: 2;
 }
 
+.card {
+  background-color: black;
+  text-align: center;
+}
+#user-info {
+  margin-bottom: 2vh;
+}
+
 @font-face {
   font-family: Arcadepix;
   src: url('../assets/content/ARCADEPI.ttf');
-  font-weight: 400;
   font-weight: normal;
 }
