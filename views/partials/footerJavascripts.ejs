@@ -30,10 +30,15 @@
 <script async defer src=<%- JSON.stringify(webPackManifest["runtime.js"]) %>></script>
 <script async defer src=<%- JSON.stringify(webPackManifest["shared.js"]) %>></script>
 
-<script async defer src=<%- JSON.stringify(webPackManifest["shared~signUp.js"]) %>></script>
-<script async defer src=<%- JSON.stringify(webPackManifest["signUp.js"]) %>></script>
+<script async defer src=<%- JSON.stringify(webPackManifest["login~shared~signup.js"]) %>></script>
+<script async defer src=<%- JSON.stringify(webPackManifest["signup.js"])
+%>></script>
 <script async defer src=<%- JSON.stringify(webPackManifest["styles.js"]) %>></script>
 <script async defer src=<%- JSON.stringify(webPackManifest["shared.js"]) %>></script>
 
-<script async defer src=<%- JSON.stringify(webPackManifest["logOut.js"])
+<script async defer src=<%- JSON.stringify(webPackManifest["logout.js"])
 %>></script>
+
+<script async defer src=<%- JSON.stringify(webPackManifest["login.js"])
+%>></script>
+

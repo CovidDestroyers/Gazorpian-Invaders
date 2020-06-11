@@ -75,6 +75,30 @@ const postSignUpData = async (url) => {
     return error;
   }
 };
+
+/**
+ * Posts Login
+ * @param {String} url
+ * @param {Array} elementIdArray
+ * @returns {Promise<*>}
+ */
+const postLoginData = async (url) => {
+  const username = getInputValue('username');
+  const password = getInputValue('password');
+
+  try {
+    const postIt = await axios.post(url, {
+      username,
+      password
+    });
+
+    return postIt;
+  } catch (error) {
+    console.log(error);
+    addFailureAlert('loginForm');
+    return error;
+  }
+};
 /**
  *
  * @param eleToWatch
@@ -155,5 +179,6 @@ export {
   postSignUpData,
   buildObject,
   addFailureAlert,
-  addSpinner
+  addSpinner,
+  postLoginData
 };

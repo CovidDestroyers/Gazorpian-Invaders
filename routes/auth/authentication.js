@@ -34,7 +34,7 @@ const passportAuth = async (req, res, next) => {
   })(req, res, next);
 };
 
-app.post('/login/auth', async (req, res, next) => {
+app.post('/auth/login', async (req, res, next) => {
   try {
     await passportAuth(req, res, next);
   } catch (error) {
@@ -71,7 +71,6 @@ app.post(
   '/logout',
   (req, res, next) => {
     console.log('Logging Out');
-    console.log(req.body);
     req.session.destroy((err) => {
       if (err) {
         next(err);

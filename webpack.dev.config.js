@@ -10,8 +10,9 @@ module.exports = {
   target: 'web',
   cache: true,
   entry: {
-    logOut: path.resolve(__dirname, './public/js/auth/logout.js'),
-    signUp: path.resolve(__dirname, './public/js/auth/signUp.js'),
+    login: path.resolve(__dirname, './public/js/auth/login.js'),
+    logout: path.resolve(__dirname, './public/js/auth/logout.js'),
+    signup: path.resolve(__dirname, './public/js/auth/signUp.js'),
     styles: path.resolve(__dirname, './public/stylesheets/style.css'),
     shared: [path.resolve(__dirname, './public/js/auth/authMe.js')]
   },
