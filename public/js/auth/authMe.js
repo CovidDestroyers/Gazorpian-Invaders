@@ -169,6 +169,14 @@ const addSpinner = (attrId) => {
   );
 };
 
+const addCardBody = (attrId, username, score) => {
+  return $(`#${attrId}`).html(
+    `<div id="user-card-body" class="card-body">
+                    <h5 class="card-title">Welcome ${username}!</h5>
+                    <p class="card-text"> Your most recent score is: <span style="color: darkorange"> ${score} </span> </p>
+                </div>`
+  );
+};
 export {
   clearInputOnClick,
   addWarningAlert,
@@ -179,5 +187,6 @@ export {
   buildObject,
   addFailureAlert,
   addSpinner,
-  postLoginData
+  postLoginData,
+  addCardBody
 };

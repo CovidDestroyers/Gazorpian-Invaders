@@ -1,6 +1,8 @@
 // eslint-disable-next-line import/extensions
 import 'regenerator-runtime/runtime.js';
 
+import { replaceContent } from './authMe';
+
 const sendLogOutRequest = async () => {
   try {
     // eslint-disable-next-line no-undef
@@ -18,6 +20,7 @@ $('#logout').click(async (event) => {
   event.preventDefault();
   try {
     await sendLogOutRequest();
+    replaceContent('username-card', '');
     // eslint-disable-next-line no-restricted-globals
     return location.reload();
   } catch (error) {

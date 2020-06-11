@@ -7,7 +7,8 @@ import {
   addFailureAlert,
   addSpinner,
   replaceContent,
-  addWarningAlert
+  addWarningAlert,
+  addCardBody
 } from './authMe.js';
 
 $(() => {
@@ -40,6 +41,10 @@ $(() => {
       if (status !== 'success') {
         addWarningAlert('loginForm', status);
       } else {
+        const { username, highScore } = backEndResponse.data;
+
+        addCardBody('username-card', username, highScore);
+
         $('#signup').prop('hidden', true);
         $('#login').prop('hidden', true);
         $('#logout').removeAttr('hidden');
