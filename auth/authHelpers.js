@@ -30,7 +30,7 @@ const createUser = async (req) => {
 const doesUserExist = async (username) => {
   try {
     const existance = await checkUserExists(username);
-    console.log(existance);
+
     const trueFalse = existance.exists;
 
     return trueFalse;

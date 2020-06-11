@@ -4,48 +4,61 @@ const { createUser, doesUserExist } = require('../../auth/authHelpers');
 
 const app = express();
 
-app.post(
-  '/login/auth',
-  passport.authenticate('local', {
-    failureRedirect: '/',
-    failureFlash: true
-  }),
-  (req, res, next) => {
-    try {
-      return res.redirect('/');
-    } catch (error) {
-      console.log(error);
-      return next(error);
+/**
+ * Custom passport auth handler
+ * @param req
+ * @param res
+ * @param next
+ * @returns {Promise<any>}
+ */
+const passportAuth = async (req, res, next) => {
+  return passport.authenticate('local', (err, user, info) => {
+    console.log(info);
+    if (err) {
+      console.log(err);
+      res.json({
+        status: `Authentication failed. Please try again.`
+      });
     }
+
+    if (!user) {
+      res.json({
+        status: `Authentication failed. Please try again.`
+      });
+    }
+    res.json({
+      status: 'success',
+      username: user.username,
+      highScore: user.score
+    });
+  })(req, res, next);
+};
+
+app.post('/login/auth', async (req, res, next) => {
+  try {
+    await passportAuth(req, res, next);
+  } catch (error) {
+    console.log(error);
+
+    next(error);
   }
-);
+});
 
 app.post('/auth/signup', async (req, res, next) => {
-  // TODO: Get keys from the req body first
-  console.log(req.body);
   const { username } = req.body;
   const cleanUsername = username.toLowerCase().trim();
 
   try {
     const userExists = await doesUserExist(cleanUsername);
-    console.log(userExists);
+
     if (userExists) {
       res.json({
         status: `That username is not available. Please choose another one`
       });
-      // res.redirect('/');
-      // return next();
     } else {
-      const user = await createUser(req);
-      console.log(user);
+      await createUser(req);
 
-      await passport.authenticate('local', {
-        failureFlash: true
-      })(req, res, next);
-
-      console.log(req.user);
-
-      res.json({ status: 'success' });
+      await passportAuth(req, res, next);
     }
   } catch (error) {
     console.log(error);
@@ -53,5 +66,23 @@ app.post('/auth/signup', async (req, res, next) => {
     next(error);
   }
 });
+
+app.post(
+  '/logout',
+  (req, res, next) => {
+    console.log('Logging Out');
+    console.log(req.body);
+    req.session.destroy((err) => {
+      if (err) {
+        next(err);
+      }
+      req.logout();
+      next();
+    });
+  },
+  (req, res) => {
+    res.json({ message: 'Logout succesful' });
+  }
+);
 
 module.exports = app;

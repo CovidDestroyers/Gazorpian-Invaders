@@ -40,12 +40,16 @@ $(() => {
       addSpinner('signupBtn');
 
       const backEndResponse = await postSignUpData('/auth/signup');
+      console.log(backEndResponse);
 
       const { status } = backEndResponse.data;
 
       if (status !== 'success') {
         addWarningAlert('signupForm', status);
       } else {
+        $('#signup').prop('hidden', true);
+        $('#login').prop('hidden', true);
+        $('#logout').removeAttr('hidden');
         $('#closeSignup').click();
       }
 
