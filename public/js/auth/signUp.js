@@ -61,8 +61,6 @@ $(() => {
       // hide signup button
       // display username => 'Welcome username'
     } catch (error) {
-      console.log(error);
-
       replaceContent('signupBtn', 'Sign Up');
       addFailureAlert('signupForm');
     }

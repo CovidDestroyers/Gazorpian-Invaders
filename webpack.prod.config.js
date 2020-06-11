@@ -12,7 +12,9 @@ module.exports = {
   target: 'web',
   cache: true,
   entry: {
-    signUp: path.resolve(__dirname, './public/js/auth/signUp.js'),
+    login: path.resolve(__dirname, './public/js/auth/login.js'),
+    logout: path.resolve(__dirname, './public/js/auth/logout.js'),
+    signup: path.resolve(__dirname, './public/js/auth/signUp.js'),
     styles: path.resolve(__dirname, './public/stylesheets/style.css'),
     shared: [path.resolve(__dirname, './public/js/auth/authMe.js')]
   },
@@ -34,7 +36,9 @@ module.exports = {
         vendor: {
           test: /[\\/]node_modules[\\/]/,
           name(module) {
-            const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1];
+            const packageName = module.context.match(
+              /[\\/]node_modules[\\/](.*?)([\\/]|$)/
+            )[1];
 
             return `npm.${packageName.replace('@', '')}`;
           }

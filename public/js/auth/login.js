@@ -34,7 +34,6 @@ $(() => {
       addSpinner('loginBtn');
 
       const backEndResponse = await postLoginData('/auth/login');
-      // console.log(backEndResponse);
 
       const { status } = backEndResponse.data;
 
@@ -44,6 +43,7 @@ $(() => {
         $('#signup').prop('hidden', true);
         $('#login').prop('hidden', true);
         $('#logout').removeAttr('hidden');
+
         $('#loginClose').click();
       }
 
@@ -51,11 +51,8 @@ $(() => {
 
       $('#username').val('');
       $('#password').val('');
-      // hide signup button
       // display username => 'Welcome username'
     } catch (error) {
-      console.log(error);
-
       replaceContent('loginBtn', 'Login');
       addFailureAlert('loginForm');
     }

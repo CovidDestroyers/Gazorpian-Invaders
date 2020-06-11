@@ -15,7 +15,6 @@ const session = require('express-session');
 const redis = require('redis');
 const RedisStore = require('connect-redis')(session);
 const passport = require('passport');
-const flash = require('connect-flash');
 
 const passportInit = require('./auth/passportInit');
 
@@ -57,7 +56,6 @@ app.use(express.static(path.join(__dirname, 'dist')));
 
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(flash());
 // Session Store
 app.use(
   session({

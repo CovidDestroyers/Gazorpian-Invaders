@@ -70,7 +70,6 @@ const postSignUpData = async (url) => {
 
     return postIt;
   } catch (error) {
-    console.log(error);
     addFailureAlert('signupForm');
     return error;
   }
@@ -94,7 +93,7 @@ const postLoginData = async (url) => {
 
     return postIt;
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     addFailureAlert('loginForm');
     return error;
   }

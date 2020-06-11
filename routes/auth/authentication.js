@@ -24,9 +24,9 @@ const passportAuth = async (req, res, next) => {
 
     if (!user) {
       res.json({
-        status: `Authentication failed. Please try again.`
+        status: `Incorrect username and password combination.`
       });
-      next();
+      // next();
     } else {
       res.json({
         status: 'success',
@@ -43,7 +43,9 @@ app.post('/auth/login', async (req, res, next) => {
   } catch (error) {
     console.log(error);
 
-    next(error);
+    res.json({
+      status: 'error'
+    });
   }
 });
 
@@ -66,6 +68,9 @@ app.post('/auth/signup', async (req, res, next) => {
   } catch (error) {
     console.log(error);
 
+    res.json({
+      status: 'error'
+    });
     next(error);
   }
 });

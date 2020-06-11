@@ -21,24 +21,18 @@ const localStrategy = new LocalStrategy(
       user = await getUserByUserName(lowerCaseUsername);
 
       if (!user[0]) {
-        return done(null, false, {
-          message: 'Incorrect username and password combination.'
-        });
+        return done(null, false);
       }
 
       if (!bcrypt.compareSync(password, user[0].password)) {
-        return done(null, false, {
-          message: 'Incorrect username and password combination.'
-        });
+        return done(null, false);
       }
 
       return done(null, user[0]);
     } catch (error) {
       console.log(error);
 
-      return done(null, false, {
-        message: 'There was an error. Please try again.'
-      });
+      return done(null, false);
     }
   }
 );

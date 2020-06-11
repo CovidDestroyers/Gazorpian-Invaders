@@ -21,8 +21,6 @@ $('#logout').click(async (event) => {
     // eslint-disable-next-line no-restricted-globals
     return location.reload();
   } catch (error) {
-    console.log(error);
-
     return error;
   }
 });
