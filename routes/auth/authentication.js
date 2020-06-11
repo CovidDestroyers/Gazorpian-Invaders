@@ -28,24 +28,29 @@ app.post('/auth/signup', async (req, res, next) => {
 
   try {
     const userExists = await doesUserExist(cleanUsername);
+    console.log(userExists);
     if (userExists) {
-      res.json({ message: 'User name is already taken' });
+      res.json({
+        status: `That username is not available. Please choose another one`
+      });
       // res.redirect('/');
       // return next();
+    } else {
+      const user = await createUser(req);
+      console.log(user);
+
+      await passport.authenticate('local', {
+        failureFlash: true
+      })(req, res, next);
+
+      console.log(req.user);
+
+      res.json({ status: 'success' });
     }
-
-    const user = await createUser(req);
-    console.log(user);
-
-    await passport.authenticate('local', {
-      failureFlash: true
-    })(req, res, next);
-
-    return res.json({ message: 'Success' });
   } catch (error) {
     console.log(error);
 
-    return next(error);
+    next(error);
   }
 });
 

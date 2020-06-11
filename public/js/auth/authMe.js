@@ -142,7 +142,7 @@ const checkPasswordsMatch = (passwordId, confirmPwdId) => {
  */
 const addSpinner = (attrId) => {
   return $(`#${attrId}`).html(
-    `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`
+    `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Working...`
   );
 };
 

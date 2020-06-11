@@ -5,13 +5,15 @@ import {
   getInputValue,
   postSignUpData,
   addFailureAlert,
-  addSpinner
+  addSpinner,
+  replaceContent,
+  addWarningAlert
 } from './authMe.js';
 
 $(() => {
-  let signupUserName = getInputValue('newUserName');
-  let signupPassword = getInputValue('signupPassword');
-  let confirmPassword = getInputValue('confirmPassword');
+  let signupUserName = getInputValue('new-username');
+  let signupPassword = getInputValue('signup-password');
+  let confirmPassword = getInputValue('confirm-password');
 
   (async () => {
     while (
@@ -19,9 +21,9 @@ $(() => {
       signupPassword === '' ||
       confirmPassword === ''
     ) {
-      signupUserName = getInputValue('newUserName');
-      signupPassword = getInputValue('signupPassword');
-      confirmPassword = getInputValue('confirmPassword');
+      signupUserName = getInputValue('new-username');
+      signupPassword = getInputValue('signup-password');
+      confirmPassword = getInputValue('confirm-password');
       // eslint-disable-next-line no-await-in-loop
       await new Promise((resolve) => {
         setTimeout(resolve, 1000);
@@ -33,22 +35,31 @@ $(() => {
 
   $('#signupBtn').click(async (event) => {
     event.preventDefault();
-    /*
-        Steps:
-        1. Get the input values for username, password, confirm password
-        2. Make sure password and confirm password are the same
-        3.
-     */
-    addSpinner('signupBtn');
 
     try {
-      const backEndResponse = await postSignUpData('/auth/signup');
-      console.log(backEndResponse);
+      addSpinner('signupBtn');
 
-      // const { status } = backEndResponse.data;
+      const backEndResponse = await postSignUpData('/auth/signup');
+
+      const { status } = backEndResponse.data;
+
+      if (status !== 'success') {
+        addWarningAlert('signupForm', status);
+      } else {
+        $('#closeSignup').click();
+      }
+
+      replaceContent('signupBtn', 'Sign Up');
+
+      $('#new-username').val('');
+      $('#signup-password').val('');
+      $('#confirm-password').val('');
+      // hide signup button
+      // display username => 'Welcome username'
     } catch (error) {
       console.log(error);
 
+      replaceContent('signupBtn', 'Sign Up');
       addFailureAlert('signupForm');
     }
   });
