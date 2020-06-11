@@ -40,7 +40,7 @@ $(() => {
       addSpinner('signupBtn');
 
       const backEndResponse = await postSignUpData('/auth/signup');
-      console.log(backEndResponse);
+      // console.log(backEndResponse);
 
       const { status } = backEndResponse.data;
 
