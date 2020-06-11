@@ -19,18 +19,21 @@ const passportAuth = async (req, res, next) => {
       res.json({
         status: `Authentication failed. Please try again.`
       });
+      next();
     }
 
     if (!user) {
       res.json({
         status: `Authentication failed. Please try again.`
       });
+      next();
+    } else {
+      res.json({
+        status: 'success',
+        username: user.username,
+        highScore: user.score
+      });
     }
-    res.json({
-      status: 'success',
-      username: user.username,
-      highScore: user.score
-    });
   })(req, res, next);
 };
 
