@@ -1,13 +1,14 @@
 {
   "runtime.js": "/runtime.b40655dec182d0230811.js",
-  "login~logout~shared~signup.js": "/login~logout~shared~signup.806b9d99ca31c0e7fa42.js",
-  "npm.babel.js": "/npm.babel.684667defef9a085332c.js",
-  "npm.regenerator-runtime.js": "/npm.regenerator-runtime.055ea3f103b8eeec5168.js",
-  "login.js": "/login.abf6816e4f5626e712a7.js",
-  "logout.js": "/logout.6069dd41d1923454ab53.js",
-  "shared.js": "/shared.2110e29f3eb4a179c4ab.js",
-  "signup.js": "/signup.1c10f665db25afa46f27.js",
-  "styles.css": "/styles.f73d637d382aa83dcb9b.css",
-  "styles.js": "/styles.f73d637d382aa83dcb9b.js",
+  "npm.babel.js": "/npm.babel.6e5136c3461b51cfca42.js",
+  "npm.regenerator-runtime.js": "/npm.regenerator-runtime.9e837801248d9f4e4b20.js",
+  "login~logout~shared~signup.js": "/login~logout~shared~signup.517c97cd6242c32f82a3.js",
+  "login.js": "/login.8eb782a7079557741f63.js",
+  "logout.js": "/logout.ef1ccd357c56040528b9.js",
+  "score.js": "/score.a7a1d4fdd9b2689e6ec2.js",
+  "shared.js": "/shared.3b3b8486d830b7f7e25c.js",
+  "signup.js": "/signup.d4dec8fb975e5bfb14c6.js",
+  "styles.css": "/styles.aa4dbe59698b48246adc.css",
+  "styles.js": "/styles.aa4dbe59698b48246adc.js",
   "style.css": "/8f060680fb42b00317558a562237d91f.ttf"
 }

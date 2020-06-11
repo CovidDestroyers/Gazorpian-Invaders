@@ -354,6 +354,7 @@ class SceneMain extends Phaser.Scene {
   // when losing lives/ when 0 lives left
   onLifeDown() {
     if (this.passingData.lives === 0) {
+      $('#game-over').html('yes');
       score = 0;
       this.textGameOver = this.add.text(
         this.game.config.width * 0.5,

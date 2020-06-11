@@ -12,6 +12,7 @@ module.exports = {
   target: 'web',
   cache: true,
   entry: {
+    score: path.resolve(__dirname, './public/js/score.js'),
     login: path.resolve(__dirname, './public/js/auth/login.js'),
     logout: path.resolve(__dirname, './public/js/auth/logout.js'),
     signup: path.resolve(__dirname, './public/js/auth/signUp.js'),

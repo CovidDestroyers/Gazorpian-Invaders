@@ -11,4 +11,14 @@ app.get('/', (req, res) => {
   });
 });
 
+app.post('/update/score', async (req, res, next) => {
+  try {
+    console.log(req.body);
+    res.end();
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+});
+
 module.exports = app;
