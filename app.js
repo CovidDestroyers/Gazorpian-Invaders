@@ -1,9 +1,7 @@
 require('dotenv').config();
 
 // This is here so I can use ngrok during development
-if (process.env.NODE_ENV === 'development') {
-  process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
-}
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
 
 const bodyParser = require('body-parser');
 const createError = require('http-errors');
