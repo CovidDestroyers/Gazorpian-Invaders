@@ -3,63 +3,70 @@
 // this is the main scene of the game where player kills enemies and has 3 lives
 let score = 0;
 class SceneMain extends Phaser.Scene {
-	constructor() {
-		super({ key: "SceneMain" });
+  constructor() {
+    super({ key: 'SceneMain' });
   }
-  
+
   init(data) {
     this.passingData = data;
   }
 
   preload() {
-    this.load.image("bg", '../assets/content/sprBg0.png')
-    this.load.image("bg", '../assets/content/sprBg1.png')
+    this.load.image('bg', '../assets/content/sprBg0.png');
+    this.load.image('bg', '../assets/content/sprBg1.png');
     // character images here
-    this.load.image("sprPlayer", "../assets/content/sprPlayer.png");
-    this.load.spritesheet("sprEnemy0", "../assets/content/sprEnemy0.png", {
+    this.load.image('sprPlayer', '../assets/content/sprPlayer.png');
+    this.load.spritesheet('sprEnemy0', '../assets/content/sprEnemy0.png', {
       frameWidth: 8,
       frameHeight: 8
     });
-   
+
     // laser images here
-    this.load.image("sprLaserEnemy", "../assets/content/sprLaserEnemy.png");
-    this.load.image("sprLaserPlayer", "../assets/content/sprLaserPlayer.png");
+    this.load.image('sprLaserEnemy', '../assets/content/sprLaserEnemy.png');
+    this.load.image('sprLaserPlayer', '../assets/content/sprLaserPlayer.png');
 
     // audio here
-    this.load.audio("laserGun", "../assets/content/laserGun.wav");
-    this.load.audio("laserGun2", "../assets/content/laserGun2.wav");
-    this.load.audio("laserGunCollision", "../assets/content/laserGunCollision.wav");
+    this.load.audio('laserGun', '../assets/content/laserGun.wav');
+    this.load.audio('laserGun2', '../assets/content/laserGun2.wav');
+    this.load.audio(
+      'laserGunCollision',
+      '../assets/content/laserGunCollision.wav'
+    );
   }
-  
-  // creates game, animation, entities, and initializes functions 
+
+  // creates game, animation, entities, and initializes functions
   create() {
     this.add.image(0, 0, 'bg').setOrigin(0, 0);
     let scorei = 0;
-    const scoreText = this.add.text(1, 1, ('Score: ' + score), { fontSize: '32px', fill: '#CD853F' });
-    if (Object.getOwnPropertyNames(this.passingData).length === 0 &&
-      this.passingData.constructor === Object) {
-      
+    const scoreText = this.add.text(1, 1, 'Score: ' + score, {
+      fontSize: '32px',
+      fill: '#CD853F'
+    });
+    if (
+      Object.getOwnPropertyNames(this.passingData).length === 0 &&
+      this.passingData.constructor === Object
+    ) {
       this.passingData = {
         maxLives: 3,
-        lives: 3,
+        lives: 3
       };
     }
 
     // sfx
     this.sfx = {
-      laserGun: this.sound.add("laserGun"),
-      laserGun2: this.sound.add("laserGun2"),
-      laserGunCollision: this.sound.add("laserGunCollision")
+      laserGun: this.sound.add('laserGun'),
+      laserGun2: this.sound.add('laserGun2'),
+      laserGunCollision: this.sound.add('laserGunCollision')
     };
 
     // creates enemy sprite animation
     this.anims.create({
-      key: "sprEnemy0",
-      frames: this.anims.generateFrameNumbers("sprEnemy0"),
+      key: 'sprEnemy0',
+      frames: this.anims.generateFrameNumbers('sprEnemy0'),
       frameRate: 10,
       repeat: -1
     });
-   
+
     // creates player
     this.player = new Player(
       this,
@@ -67,9 +74,11 @@ class SceneMain extends Phaser.Scene {
       this.game.config.height - 64
     );
 
-    // initializes player keyboard input 
+    // initializes player keyboard input
     this.cursors = this.input.keyboard.createCursorKeys();
-    this.keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+    this.keySpace = this.input.keyboard.addKey(
+      Phaser.Input.Keyboard.KeyCodes.SPACE
+    );
 
     // delay inbetween each player shot
     this.playerShootDelay = 30;
@@ -78,9 +87,9 @@ class SceneMain extends Phaser.Scene {
     this.enemies = this.add.group();
     this.enemyLasers = this.add.group();
     this.playerLasers = this.add.group();
-    
-    this.lastEnemyMoveDir = "RIGHT";
-    this.enemyMoveDir = "LEFT";
+
+    this.lastEnemyMoveDir = 'RIGHT';
+    this.enemyMoveDir = 'LEFT';
     this.enemyRect = new Phaser.Geom.Rectangle(
       0,
       0,
@@ -88,11 +97,15 @@ class SceneMain extends Phaser.Scene {
       Math.round((this.game.config.height / 20) * 0.25) * 20
     );
 
-    // adds enemy sprites to game 
+    // adds enemy sprites to game
     for (let x = 0; x < Math.round((this.game.config.width / 24) * 0.75); x++) {
-      for (let y = 0; y < Math.round((this.game.config.height / 20) * 0.25); y++) {
-        const enemy = new Enemy(this, x * 24, 128 + (y * 20), "sprEnemy0");
-        enemy.play("sprEnemy0");
+      for (
+        let y = 0;
+        y < Math.round((this.game.config.height / 20) * 0.25);
+        y++
+      ) {
+        const enemy = new Enemy(this, x * 24, 128 + y * 20, 'sprEnemy0');
+        enemy.play('sprEnemy0');
         enemy.setScale(2);
         this.enemies.add(enemy);
       }
@@ -107,48 +120,74 @@ class SceneMain extends Phaser.Scene {
     this.createLivesIcons();
 
     // if lasers hit then delete enemy or player etc
-    this.physics.add.overlap(this.playerLasers, this.enemies, function(laser, enemy) {
-      if (laser) {
-        laser.destroy();
-        // sfx
-        this.sfx.laserGunCollision.play();
-      }
-      if (enemy) {
-        enemy.destroy();
-        scorei = score + 10;
-        score = scorei;
-        scoreText.setText(`Score: ` + score);
-      }
-    }, null, this);
-    this.physics.add.overlap(this.playerLasers, this.enemyLasers, function(playerLaser, enemyLaser) {
-      if (playerLaser) {
-        playerLaser.destroy();
-        // sfx
-        this.sfx.laserGunCollision.play();
-      }
-      if (enemyLaser) {
-        enemyLaser.destroy();
-        // sfx
-        this.sfx.laserGunCollision.play();
-      }
-    }, null, this);
-    this.physics.add.overlap(this.player, this.enemies, function(player, enemy) {
-      if (player) {
-        player.destroy();
-        this.onLifeDown();
-      }
-    }, null, this);
-    this.physics.add.overlap(this.player, this.enemyLasers, function(player, laser) {
-      if (player) {
-        player.destroy(); 
-        this.onLifeDown();
-      }
-      if (laser) {
-        laser.destroy();
-        // sfx
-        this.sfx.laserGunCollision.play();
-      }
-    }, null, this);    
+    this.physics.add.overlap(
+      this.playerLasers,
+      this.enemies,
+      function (laser, enemy) {
+        if (laser) {
+          laser.destroy();
+          // sfx
+          this.sfx.laserGunCollision.play();
+        }
+        if (enemy) {
+          enemy.destroy();
+          scorei = score + 10;
+          score = scorei;
+          scoreText.setText(`Score: ` + score);
+
+          $('#user-score').html(score);
+        }
+      },
+      null,
+      this
+    );
+    this.physics.add.overlap(
+      this.playerLasers,
+      this.enemyLasers,
+      function (playerLaser, enemyLaser) {
+        if (playerLaser) {
+          playerLaser.destroy();
+          // sfx
+          this.sfx.laserGunCollision.play();
+        }
+        if (enemyLaser) {
+          enemyLaser.destroy();
+          // sfx
+          this.sfx.laserGunCollision.play();
+        }
+      },
+      null,
+      this
+    );
+    this.physics.add.overlap(
+      this.player,
+      this.enemies,
+      function (player, enemy) {
+        if (player) {
+          player.destroy();
+          this.onLifeDown();
+        }
+      },
+      null,
+      this
+    );
+    this.physics.add.overlap(
+      this.player,
+      this.enemyLasers,
+      function (player, laser) {
+        if (player) {
+          player.destroy();
+          this.onLifeDown();
+        }
+        if (laser) {
+          laser.destroy();
+          // sfx
+          this.sfx.laserGunCollision.play();
+        }
+      },
+      null,
+      this
+    );
   }
 
   // sets up enemey direction left/right
@@ -162,39 +201,39 @@ class SceneMain extends Phaser.Scene {
     this.enemyMoveTimer = this.time.addEvent({
       delay: 1024,
       callback() {
-        if (this.enemyMoveDir === "RIGHT") {
+        if (this.enemyMoveDir === 'RIGHT') {
           this.enemyRect.x += 6;
-          if (this.enemyRect.x + this.enemyRect.width > this.game.config.width - 20) {
-            this.setEnemyDirection("DOWN");
+          if (
+            this.enemyRect.x + this.enemyRect.width >
+            this.game.config.width - 20
+          ) {
+            this.setEnemyDirection('DOWN');
           }
-        }
-        else if (this.enemyMoveDir === "LEFT") {
+        } else if (this.enemyMoveDir === 'LEFT') {
           this.enemyRect.x -= 6;
-        
+
           if (this.enemyRect.x < 20) {
-            this.setEnemyDirection("DOWN");
+            this.setEnemyDirection('DOWN');
           }
-        }
-        else if (this.enemyMoveDir === "DOWN") {
+        } else if (this.enemyMoveDir === 'DOWN') {
           this.enemyMoveTimer.delay -= 100;
           this.moveEnemiesDown();
         }
         for (let i = this.enemies.getChildren().length - 1; i >= 0; i--) {
           const enemy = this.enemies.getChildren()[i];
 
-          if (this.enemyMoveDir === "RIGHT") {
+          if (this.enemyMoveDir === 'RIGHT') {
             enemy.x += 6;
-          }
-          else if (this.enemyMoveDir === "LEFT") {
+          } else if (this.enemyMoveDir === 'LEFT') {
             enemy.x -= 6;
           }
-        }        
+        }
       },
       callbackScope: this,
       loop: true
-    });    
+    });
   }
-  
+
   // gets enemies to randomly shoot at player
   updateEnemiesShooting() {
     this.time.addEvent({
@@ -220,16 +259,15 @@ class SceneMain extends Phaser.Scene {
     for (let i = this.enemies.getChildren().length - 1; i >= 0; i--) {
       const enemy = this.enemies.getChildren()[i];
       enemy.y += 20;
-      
-      if (this.lastEnemyMoveDir === "LEFT") {
-        this.setEnemyDirection("RIGHT");
-      }
-      else if (this.lastEnemyMoveDir === "RIGHT") {
-        this.setEnemyDirection("LEFT");	
+
+      if (this.lastEnemyMoveDir === 'LEFT') {
+        this.setEnemyDirection('RIGHT');
+      } else if (this.lastEnemyMoveDir === 'RIGHT') {
+        this.setEnemyDirection('LEFT');
       }
     }
   }
-    
+
   // controls players movement when using arrowkeys
   updatePlayerMovement() {
     this.time.addEvent({
@@ -255,15 +293,14 @@ class SceneMain extends Phaser.Scene {
         if (this.keySpace.isDown && this.player.active) {
           if (this.playerShootTick < this.playerShootDelay) {
             this.playerShootTick++;
-          }
-          else {
+          } else {
             const laser = new PlayerLaser(this, this.player.x, this.player.y);
             this.playerLasers.add(laser);
             // add sfx here
             this.sfx.laserGun2.play();
             this.playerShootTick = 0;
           }
-        }	
+        }
       },
       callbackScope: this,
       loop: true
@@ -292,28 +329,28 @@ class SceneMain extends Phaser.Scene {
       callback() {
         for (let i = 0; i < this.enemyLasers.getChildren().length; i++) {
           const laser = this.enemyLasers.getChildren()[i];
-    
+
           laser.y += laser.displayHeight;
         }
       },
       callbackScope: this,
       loop: true
-    });    
+    });
   }
-  
+
   // creates life icons on top left of screen
   createLivesIcons() {
     for (let i = 0; i < this.passingData.lives; i++) {
       const icon = this.add.sprite(
-        32 + (i * 32),
+        32 + i * 32,
         this.game.config.height - 600,
-        "sprPlayer"
+        'sprPlayer'
       );
       icon.setScale(2);
       icon.setDepth(5);
     }
   }
-    
+
   // when losing lives/ when 0 lives left
   onLifeDown() {
     if (this.passingData.lives === 0) {
@@ -321,11 +358,11 @@ class SceneMain extends Phaser.Scene {
       this.textGameOver = this.add.text(
         this.game.config.width * 0.5,
         128,
-        "YOU LOSE",
+        'YOU LOSE',
         {
-          fontFamily: "Arcadepix",
+          fontFamily: 'Arcadepix',
           fontSize: 60,
-          align: "center"
+          align: 'center'
         }
       );
       this.textGameOver.setOrigin(0.5);
@@ -335,10 +372,9 @@ class SceneMain extends Phaser.Scene {
       callback() {
         if (this.passingData.lives > 0) {
           this.passingData.lives--;
-          this.scene.start("SceneMain", this.passingData);
-        }
-        else {
-          this.scene.start("SceneMain", { });
+          this.scene.start('SceneMain', this.passingData);
+        } else {
+          this.scene.start('SceneMain', {});
         }
       },
       callbackScope: this,
