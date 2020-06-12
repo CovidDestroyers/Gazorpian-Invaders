@@ -15,13 +15,13 @@ $(() => {
       });
     }
     try {
-      // eslint-disable-next-line no-undef
+      // eslint-disable-next-line no-undef,no-unused-vars
       const postIt = await axios.post('/update/score', {
         userScore,
         gameOver
       });
 
-      console.log(postIt);
+      // console.log(postIt);
     } catch (error) {
       console.log(error);
     }

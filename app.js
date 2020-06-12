@@ -1,7 +1,9 @@
-require('dotenv').config();
+if (process.env.NODE_ENV === 'production') {
+  // eslint-disable-next-line global-require
+  require('sqreen');
+}
 
-// This is here so I can use ngrok during development
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
+require('dotenv').config();
 
 const bodyParser = require('body-parser');
 const createError = require('http-errors');
@@ -29,7 +31,7 @@ passportInit();
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-app.set('trust proxy', 1);
+// app.set('trust proxy', 1);
 
 // Enforces HTTPS in production environment
 if (process.env.NODE_ENV === 'production') {

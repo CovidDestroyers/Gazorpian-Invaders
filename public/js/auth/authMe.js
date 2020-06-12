@@ -12,7 +12,7 @@ const addFailureAlert = (
   message = 'Something failed. Please retry in a few minutes.'
 ) => {
   return $(`#${attrId}`).append(`<div class="alert alert-danger alert-rounded">
-                                  <strong> OH NOOOOO!</strong>  ${message}
+                                  <strong> OH NOOOOO! </strong>  ${message}
                                   <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span> </button> </div>`);
 };
 
