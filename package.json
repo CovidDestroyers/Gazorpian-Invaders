@@ -86,7 +86,7 @@
     "webpack-manifest-plugin": "^2.2.0"
   },
   "engines": {
-    "node": "14.16.0"
+    "node": "14.16.1"
   },
   "husky": {
     "hooks": {
@@ -108,7 +108,7 @@
         "airbnb",
         {
           "targets": {
-            "node": "14.2.0"
+            "node": "14.16.1"
           }
         },
         "@babel/preset-env"
