@@ -1,0 +1,2 @@
+(self.webpackChunkgazorpian_invaders=self.webpackChunkgazorpian_invaders||[]).push([[612],{"HaE+":(n,e,r)=>{"use strict";function t(n,e,r,t,i,a,o){try{var u=n[a](o),c=u.value}catch(n){return void r(n)}u.done?e(c):Promise.resolve(c).then(t,i)}function i(n){return function(){var e=this,r=arguments;return new Promise((function(i,a){var o=n.apply(e,r);function u(n){t(o,i,a,u,c,"next",n)}function c(n){t(o,i,a,u,c,"throw",n)}u(void 0)}))}}r.d(e,{Z:()=>i})}}]);
+//# sourceMappingURL=npm.babel.48cd0685e332a312b78d.js.map

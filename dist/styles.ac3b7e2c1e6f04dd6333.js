@@ -1,0 +1,1 @@
+(self.webpackChunkgazorpian_invaders=self.webpackChunkgazorpian_invaders||[]).push([[532],{qgGb:()=>{}},a=>{"use strict";var s;s="qgGb",a(a.s=s)}]);

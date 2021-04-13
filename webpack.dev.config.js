@@ -1,7 +1,7 @@
 /* eslint-disable  import/no-extraneous-dependencies */
 const path = require('path');
 const webpack = require('webpack');
-const ManifestPlugin = require('webpack-manifest-plugin');
+const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
@@ -51,8 +51,8 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin(),
-    new webpack.HashedModuleIdsPlugin(),
-    new ManifestPlugin(),
+    new webpack.ids.HashedModuleIdsPlugin(),
+    new WebpackManifestPlugin(),
     new MiniCssExtractPlugin({
       filename: '[name].[contenthash].css',
       chunkFilename: '[name].[chunkhash].css',
