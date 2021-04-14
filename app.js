@@ -21,7 +21,11 @@ const passport = require('passport');
 const passportInit = require('./auth/passportInit');
 
 const app = express();
-const redisClient = redis.createClient({ url: process.env.REDIS_URL });
+const redisClient = redis.createClient(process.env.HEROKU_REDIS_OLIVE_TLS_URL, {
+  tls: {
+    rejectUnauthorized: false
+  }
+});
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
